@@ -11,8 +11,11 @@
 				<tr>
 					<th style="width:5%;">No.</th>
 					<th>Nama</th>
-					<th>Email</th>
+					<th>No. Induk</th>
+					<th>Fakultas</th>
+					<th>Jurusan</th>
 					<th>No. Kendaraan</th>
+					<th>Zona</th>
 					<th>Status</th>
 					<th></th>
 				</tr>
@@ -26,13 +29,17 @@
 				<tr>
 					<td><?php echo $no; ?></td>
 					<td><?php echo $value['fullname']; ?></td>
-					<td><?php echo $value['email']; ?></td>
+					<td><?php echo $value['no_induk']; ?></td>
+					<td><?php echo $value['nama_fakultas']; ?></td>
+					<td><?php echo $value['nama_jurusan']; ?></td>
 					<td><?php echo $value['no_kendaraan']; ?></td>
+					<td><?php echo $value['zona']; ?></td>
 					<td><?php echo $value['status']; ?></td>
 					<td align="right">
 						<a href="<?= base_url("main/execute/cetak/member"); ?>/<?= $value['id'] ?>" target="_blank"><button type="button" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-eye-open"></span></button></a>
+						<a href="<?= base_url("main/export/cetak_kartu/"); ?><?= $value['id'] ?>" target="_blank"><button type="button" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-print"></span></button></a>
 						<a href="#"><button type="button" data-toggle="modal" data-target="#updatememberModal" id="<?php echo $value['id']; ?>" class="edit btn btn-sm btn-default"><span class="glyphicon glyphicon-pencil"></span></button></a>
-						<a href="<?php echo site_url('main/execute/delete/'.$value['id'].''); ?>" onclick="return confirm('Hapus <?php echo $value['fullname'] ?>?')"><button type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></button></a>
+						<a href="<?php echo base_url('main/execute/delete/member/'.$value['id']); ?>" onclick="return confirm('Hapus <?php echo $value['fullname'] ?>?')"><button type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></button></a>
 					</td>
 				</tr>
 			 <?php } ?>

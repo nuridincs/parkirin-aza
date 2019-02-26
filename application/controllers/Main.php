@@ -47,6 +47,12 @@
 					header('Content-Type: application/json');
 					echo json_encode($result);
 				}
+			}else if($type == 'delete'){
+				if($act == 'member'){
+					$this->db->where('id', $id);
+					$this->db->delete('app_member');
+					redirect(($_SERVER['HTTP_REFERER']), 'refresh');
+				}
 			}
 			//$this->load->view("layouts/main",$data);
 		}
@@ -65,6 +71,27 @@
 			$this->ciqrcode->generate($params);
 			//mencoba mengeluarkan nilai barcode yang baru saja di generate
 			// echo '<img src="'.base_url().'assets/qrcode/'.$barcode_create.'.png" />';
+		}
+
+		public function export($act="",$id=""){
+			$this->load->library('m_pdf');
+			error_reporting(E_ALL);
+			if($act == 'cetak_kartu'){
+				$nama_dokumen='PDF';
+				$mpdf=new mPDF('utf-8', 'A4', 10.5, 'arial');
+				ob_start();
+				$data['result'] = $this->main->get_data('daftarmember',$id);
+				$data['content'] = "content/data_member";
+				$_view = $this->load->view("layouts/main",$data);
+			}
+			
+			echo $_view;
+				
+			$html = ob_get_contents();
+			//ob_end_clean();
+			$mpdf->WriteHTML(utf8_encode($html));
+			$mpdf->Output($nama_dokumen.".pdf" ,'I');
+			exit;
 		}
 
 	}

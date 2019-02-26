@@ -10,9 +10,9 @@
               <img src="<?= base_url("assets/img/user.png") ?>" style="width:72px;height:72px;" />
             </div>
             <h4 id="thumbnail-label"><a href="https://flow.microsoft.com/en-us/connectors/shared_slack/slack/" target="_blank"><?= $result[0]['fullname'] ?></a></h4>
-            <p><i class="glyphicon glyphicon-user light-red lighter bigger-120"></i>&nbsp;<?= $result[0]['role'] ?></p>
-            <div class="thumbnail-description smaller">
-              <img src="<?= base_url("assets/img/qrcode.gif") ?>" alt="" class="img-responsive">
+            <p><i class="glyphicon glyphicon-user light-red lighter bigger-120"></i>&nbsp;<?= $result[0]['zona'] ?></p>
+            <div class="thumbnail-description smaller" align="center">
+              <img src="<?= base_url(); ?>assets/qrcode/<?= $result[0]['no_induk'] ?>.png" alt="" class="img-responsive">
             </div>
           </div>
           <div class="caption card-footer text-center">

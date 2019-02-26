@@ -16,7 +16,7 @@ $(document).ready(function(){
             success:function(data){
                 console.log(data);
                 // $("#editModal").hide();
-                // window.location.reload(true);
+                window.location.reload(true);
             }
         });
     });
@@ -25,15 +25,14 @@ $(document).ready(function(){
         id = $(this).attr('id');
         $.ajax({
             url:'execute/getdata/member',
-            // data: {id:id},
             type:'POST',
             data:{send:true,id:id},
             success:function(data){
                 console.log(data['no_induk']);
-                $("#update_produk_id").val(data['produk_id']);
-                $("#update_kode_produk").val(data['kode_produk']);
-                $("#update_nama").val(data['produk_nama']);
-                $("#update_harga").val(data['produk_harga']);
+                // $("#update_produk_id").val(data['produk_id']);
+                // $("#update_kode_produk").val(data['kode_produk']);
+                // $("#update_nama").val(data['produk_nama']);
+                // $("#update_harga").val(data['produk_harga']);
             }
         });
     });
