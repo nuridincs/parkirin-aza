@@ -38,6 +38,7 @@
 
 		<!-- external javascript -->
 		<script src="<?php echo base_url('assets/js/jquery.js'); ?>" type="text/javascript"></script>
+		<script src="<?php echo base_url('assets/js/main.js'); ?>" type="text/javascript"></script>
 		<script src="<?php echo base_url('assets/bootstrap/js/bootstrap.min.js'); ?>" type="text/javascript"></script>
 	</body>
 </html>
