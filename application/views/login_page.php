@@ -18,24 +18,24 @@
 					<!-- <h4 style="color:#fff;margin-bottom:40px" align="right"><u>MASUK</u></h4> -->
 					<div class="form-group has-feedback">
 						<div style="color:#F2F2F2;padding-bottom:10px;font-size:9pt;padding-left:12px;">NAMA</div>
-						<input type="text" name="email" class="form-log" maxlength="100">
+						<input type="text" name="email" class="form-log" maxlength="100" required>
 					</div>
 					<div class="form-group has-feedback">
 						<div style="color:#F2F2F2;padding-bottom:10px;font-size:9pt;padding-left:12px;">KATA SANDI</div>
-						<input type="password" name="password" class="form-log" maxlength="100">
+						<input type="password" name="password" class="form-log" maxlength="100" required>
 					</div>
 					<br/>
 					<button type="submit" class="btn2 btn-success" style="width:100%;">Masuk</button><br/>
 				</form>
 				<br>
-				<div style="color:#000">
+				<div style="color:#fff">
 					<div>
 						Akses Admin<br>
-						user : admin@kasir.com<br>
+						user : admin@parkirin-aza.com<br>
 						Pass : 123<br>
 						<hr>
-						Akses kasir<br>
-						user : ncs@kasir.com<br>
+						Akses petugas<br>
+						user : petugas@parkirin-aza.com<br>
 						Pass : 123
 					</div>
 					
