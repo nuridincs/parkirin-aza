@@ -36,6 +36,13 @@ class M_main extends CI_Model{
 			$sql = "SELECT * FROM app_jabatan";
 			$result = $this->db->query($sql)->result_array();
 			return $result;
+		}else if($act == "kuota"){
+			$sql = "SELECT zona.id,mbr.id AS id_member,mbr.no_induk,mbr.no_kendaraan,zona.nama_zona,zona.kuota,zona.sisa_kuota
+					FROM app_member mbr
+					INNER JOIN app_zona zona ON zona.id = mbr.id_zona
+					WHERE mbr.no_induk =".$id;
+			$result = $this->db->query($sql)->result_array();
+			return $result;
 		}
 	}
 	
@@ -43,6 +50,44 @@ class M_main extends CI_Model{
 		if($type=="save"){
 			if($act=="member"){
 				$this->db->insert('app_member',$data);
+			}else if($act=="inout"){
+				$no_induk = $data['no_induk'];
+				$status = $data['status'];
+
+				$getKuota = $this->get_data('kuota',$no_induk);
+				if(!empty($getKuota)){
+					if($status == "in"){
+						$sisa_kuota = $getKuota[0]['sisa_kuota'] - 1;
+						$datainout = array(
+							'no_induk' => $getKuota[0]['no_induk'],
+							'no_in' => $sisa_kuota,
+							'created_date' => date("Y-m-d H:i:s")
+						);
+					}else{
+						$sisa_kuota = $getKuota[0]['sisa_kuota']  + 1;
+						$datainout = array(
+							'no_induk' => $getKuota[0]['no_induk'],
+							'no_in' => $sisa_kuota,
+							'status_inout' => 2,
+							'created_date' => date("Y-m-d H:i:s")
+						);
+					}
+
+					$this->db->where('id',$getKuota[0]['id']);
+					$this->db->update('app_zona',array('sisa_kuota'=>$sisa_kuota));
+
+					$this->db->insert('app_inout',$datainout);
+
+					$result['member'] = $this->get_data('daftarmember',$getKuota[0]['id_member']);
+					$result['kouta'] = array(
+						'sisa_kuota' => $sisa_kuota
+					);
+
+					return $result;
+				}else{
+					return 0;
+					//echo "data tidak ditemukan";
+				}
 			}
 		}
 	}

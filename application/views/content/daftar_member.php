@@ -111,7 +111,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h3 class="modal-title"><span class="glyphicon glyphicon-plus"></span> Tambah Member</h3>
+						<h3 class="modal-title"><span class="glyphicon glyphicon-plus"></span> Update Member</h3>
 					</div>
 					<div class="modal-body">
 						<form id="tambahform" action="#" method="post" enctype="multipart/form-data">	
@@ -160,7 +160,7 @@
 									?>
 								</select>
 							</div>
-							<button type="submit" class="btn btn-primary" style="width:100%;" id="savemember">Simpan</button>
+							<button type="submit" class="btn btn-primary" style="width:100%;" id="updatemember">Simpan</button>
 						</form>
 						<!-- <div id="a"></div> -->
 					</div>

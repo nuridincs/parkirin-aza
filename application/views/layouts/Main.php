@@ -17,8 +17,12 @@
 				<span class="icon-bar"></span> 
 			</button>
 			<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $this->session->userdata('nama') ?></a>
-			<a class="navbar-brand" href="<?php echo base_url('main/home'); ?>">Home</a>
-			<a class="navbar-brand" href="<?php echo base_url('main/daftarmember'); ?>">Daftar Member</a>
+			<?php if($this->session->userdata('levelaks') == 3){ ?>
+			
+			<?php }else{ ?>
+				<a class="navbar-brand" href="<?php echo base_url('main/home'); ?>">Home</a>
+				<a class="navbar-brand" href="<?php echo base_url('main/daftarmember'); ?>">Daftar Member</a>
+			<?php } ?>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-right">

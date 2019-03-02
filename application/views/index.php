@@ -13,7 +13,7 @@
 		<div class="tengah">
 			<div class="item-tengah">
 			    <b><h1 style="color:rgb(196, 196, 196)" align="center">Parkirin Aza</h1></b>
-			    <h4 style="color:rgb(196, 196, 196)" align="center">A New Smart parking Platform for all Mall in Indonesia</h4>
+			    <h4 style="color:rgb(196, 196, 196)" align="center">A New Smart parking Platform for Universitas Islam Negeri Syarif Hidayatullah Jakarta</h4>
 			    <a href="<?= base_url('login'); ?>"> 
 				    <div class="btn btn-lg btn-success" style="float:left;margin-top:40px">
 				      &nbsp;Get Started&nbsp;

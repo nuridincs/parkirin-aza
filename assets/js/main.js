@@ -36,4 +36,24 @@ $(document).ready(function(){
             }
         });
     });
+
+    $(".p_inout").click(function(){
+        var no_induk = $("#p_no_induk").val(),
+            status = $(this).attr('id');
+            // console.log(status);
+            // return false;
+        $.ajax({
+            url:'execute/save/inout',
+            type:'POST',
+            data:{
+                send:true,
+                no_induk:no_induk,
+                status:status
+            },
+            success:function(data){
+                // console.log(data);
+                $('#p_result').html(data);
+            }
+        });
+    });
 });

@@ -21,8 +21,6 @@ class Login extends MY_Controller {
 			redirect(base_url('').'?balasan=1');
 		}else{
 			$this->load->driver('session'); //activate sessionp
-			// print_r($query->result());
-			// die;
 			foreach($query->result() as $result){
 				$id_user = $result->idpetugas;
 				$kategori = $result->kategori;
@@ -31,8 +29,8 @@ class Login extends MY_Controller {
 			$this->session->set_userdata('iduser', $id_user);
 			$this->session->set_userdata('levelaks', $kategori);
 			$this->session->set_userdata('nama', $nama);
-			if($kategori==1){
-				redirect(base_url('admin/dashboard'), 'refresh');
+			if($kategori==3){
+				redirect(base_url('main/home'), 'refresh');
 			}else{
 				redirect(base_url('main/home'), 'refresh');
 				// $this->load->view("layouts/main");

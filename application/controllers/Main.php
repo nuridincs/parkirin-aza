@@ -39,6 +39,48 @@
 					$this->generateqrcode($no_induk);
 					$data = $this->main->execute('save','member',$param);
 					// echo $data;
+				}else if($act == 'inout'){
+					$param = $this->input->post();
+					$result = $this->main->execute('save','inout',$param);
+					if($param['status'] == "in"){
+						$status = "Masuk";
+					}else{
+						$status = "Keluar";
+					}
+					if($result == 0){
+						$_view = "Data tidak ditemukan";
+					}else{
+						$_view = '<div><h4>Info Parkir '.$status.'</h4>';
+							$_view .= '<div class="row">';
+								$_view .= '<div class="col-sm-8" align="center">';
+									$_view .= '<img src="'. base_url() .'assets/qrcode/'.$result['member'][0]['no_induk'].'.png" alt="" class="img-responsive">';
+								$_view .= '</div>';
+							$_view .= '</div>';
+							$_view .= '<div class="row">';
+								$_view .= '<div class="col-sm-6">No. Induk</div>';
+								$_view .= '<div class="col-sm-6">'.$result['member'][0]['no_induk'].'</div>';
+							$_view .= '</div>';
+							$_view .= '<div class="row">';
+								$_view .= '<div class="col-sm-6">Fakultas</div>';
+								$_view .= '<div class="col-sm-6">'.$result['member'][0]['nama_fakultas'].'</div>';
+							$_view .= '</div>';
+							$_view .= '<div class="row">';
+								$_view .= '<div class="col-sm-6">Jurusan</div>';
+								$_view .= '<div class="col-sm-6">'.$result['member'][0]['nama_jurusan'].'</div>';
+							$_view .= '</div>';
+							$_view .= '<div class="row">';
+								$_view .= '<div class="col-sm-6">Zona</div>';
+								$_view .= '<div class="col-sm-6">'.$result['member'][0]['zona'].'</div>';
+							$_view .= '</div>';
+							$_view .= '<div class="row">';
+								$_view .= '<div class="col-sm-6">Slot parkir tersedia</div>';
+								$_view .= '<div class="col-sm-6">'.$result['kouta']['sisa_kuota'].'</div>';
+							$_view .= '</div>';
+						$_view .= '</div>';
+					}
+
+					header('Content-Type: application/json');
+					echo json_encode($_view);
 				}
 			}else if($type == 'getdata'){
 				if($act == 'member'){

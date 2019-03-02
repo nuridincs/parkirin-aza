@@ -6,6 +6,7 @@
 		<title>Aplikasi Kasih Sederhana</title>
 		<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link href="assets/css/style.css" rel="stylesheet">
+		<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url('assets/img/parkir.png'); ?>" />
 	</head>
 	<body class="body">
 		<div class="container">
