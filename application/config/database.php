@@ -73,12 +73,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+$hostname = $_SERVER['HTTP_HOST'];//getenv('HTTP_HOST');
+if($hostname == 'parkirin-aza.local'){
+	$username = 'root';
+	$dbname = 'db_parkirin_aza';
+	$password = '';
+}else{
+	$username = "user";
+	$dbname = "db_parkiran_aza";
+	$password = "user";
+}
+
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost:3306',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'db_parkirin_aza',
+	'username' => $username,//'root',
+	'password' => $password,//'',
+	'database' => $dbname,//'db_parkirin_aza',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
