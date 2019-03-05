@@ -49,6 +49,8 @@
 					}
 					if($result == 0){
 						$_view = "Data tidak ditemukan";
+					}else if($result == 1){
+						$_view = "Anda sedang parkir";
 					}else{
 						$_view = '<div><h4>Info Parkir '.$status.'</h4>';
 							$_view .= '<div class="row">';
