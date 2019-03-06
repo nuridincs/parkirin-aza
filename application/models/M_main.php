@@ -44,7 +44,7 @@ class M_main extends CI_Model{
 			$result = $this->db->query($sql)->result_array();
 			return $result;
 		}else if($act == 'inout'){
-			$sql = "SELECT * FROM app_inout WHERE no_induk='$id'";
+			$sql = "SELECT * FROM app_inout WHERE no_induk='$id' ORDER BY id DESC";
 			$result = $this->db->query($sql)->result_array();
 			return $result;
 		}
@@ -61,54 +61,34 @@ class M_main extends CI_Model{
 				$cekInout = $this->get_data('inout',$no_induk);
 				$getKuota = $this->get_data('kuota',$no_induk);
 				if(!empty($getKuota)){
-
-					// if($status == "in"){
-					// 	$sisa_kuota = $getKuota[0]['sisa_kuota'] - 1;
-					// 	$datainout = array(
-					// 		'no_induk' => $getKuota[0]['no_induk'],
-					// 		'no_in' => $sisa_kuota,
-					// 		'created_date' => date("Y-m-d H:i:s")
-					// 	);
-					// }else{
-					// 	$sisa_kuota = $getKuota[0]['sisa_kuota']  + 1;
-					// 	$datainout = array(
-					// 		'no_induk' => $getKuota[0]['no_induk'],
-					// 		'no_in' => $sisa_kuota,
-					// 		'status_inout' => 2,
-					// 		'created_date' => date("Y-m-d H:i:s")
-					// 	);
-					// }
-
-					if(!empty($cekInout) && $cekInout[0]['status_inout'] == 1){
-						return 1;
-					}
-					// elseif(!empty($cekInout) && $cekInout[0]['status_inout'] == 2){
-					// 	$msg = "Anda sedang tidak parkir";
-					// }
-					else{
-						if($status == "in"){
-							if(!empty($cekInout) && $cekInout[0]['status_inout'] == 1){
-								return 1;
-							}else{
-								$sisa_kuota = $getKuota[0]['sisa_kuota'] - 1;
-								$datainout = array(
-									'no_induk' => $getKuota[0]['no_induk'],
-									'no_in' => $sisa_kuota,
-									'created_date' => date("Y-m-d H:i:s")
-								);
-
-								$this->db->insert('app_inout',$datainout);
-								// $id_inout =$this->db->insert_id();
-								
-								$datahistory = array(
-									'no_induk' => $getKuota[0]['no_induk'],
-									'status_inout'=> 1,
-									'created_date' => date("Y-m-d H:i:s")
-								);
-							}
+					if($status == "in"){
+						if(!empty($cekInout) && $cekInout[0]['status_inout'] == 1){
+							return 1;
+							exit;
 						}else{
-							if(!empty($cekInout) && $cekInout[0]['status_inout'] == 2){
+							$sisa_kuota = $getKuota[0]['sisa_kuota'] - 1;
+							$datainout = array(
+								'no_induk' => $getKuota[0]['no_induk'],
+								'no_in' => $sisa_kuota,
+								'created_date' => date("Y-m-d H:i:s")
+							);
+
+							$this->db->insert('app_inout',$datainout);
+
+							$datahistory = array(
+								'no_induk' => $getKuota[0]['no_induk'],
+								'status_inout'=> 1,
+								'created_date' => date("Y-m-d H:i:s")
+							);
+						}
+					}else{
+						if(empty($cekInout)){
+							return 0;
+							exit;
+						}else {
+							if($cekInout[0]['status_inout'] == 2){
 								return 2;
+								exit;
 							}else{
 								$sisa_kuota = $getKuota[0]['sisa_kuota']  + 1;
 								$datainout = array(
@@ -126,37 +106,22 @@ class M_main extends CI_Model{
 								$this->db->where('no_induk',$getKuota[0]['no_induk']);
 								$this->db->update('app_inout',array('status_inout'=>2));
 							}
-
 						}
-
-						$this->db->where('id',$getKuota[0]['id']);
-						$this->db->update('app_zona',array('sisa_kuota'=>$sisa_kuota));
-
-						// $this->db->insert('app_inout',$datainout);
-						$this->db->insert('app_history_inout',$datahistory);
-
-						$result['member'] = $this->get_data('daftarmember',$getKuota[0]['id_member']);
-						$result['kouta'] = array(
-							'sisa_kuota' => $sisa_kuota
-						);
-
-						return $result;
 					}
 
-					// $this->db->where('id',$getKuota[0]['id']);
-					// $this->db->update('app_zona',array('sisa_kuota'=>$sisa_kuota));
+					$this->db->where('id',$getKuota[0]['id']);
+					$this->db->update('app_zona',array('sisa_kuota'=>$sisa_kuota));
 
-					// $this->db->insert('app_inout',$datainout);
+					$this->db->insert('app_history_inout',$datahistory);
 
-					// $result['member'] = $this->get_data('daftarmember',$getKuota[0]['id_member']);
-					// $result['kouta'] = array(
-					// 	'sisa_kuota' => $sisa_kuota
-					// );
+					$result['member'] = $this->get_data('daftarmember',$getKuota[0]['id_member']);
+					$result['kouta'] = array(
+						'sisa_kuota' => $sisa_kuota
+					);
 
-					// return $result;
+					return $result;
 				}else{
 					return 0;
-					//echo "data tidak ditemukan";
 				}
 			}
 		}
