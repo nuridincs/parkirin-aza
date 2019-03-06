@@ -22,6 +22,7 @@
 			<?php }else{ ?>
 				<a class="navbar-brand" href="<?php echo base_url('main/home'); ?>">Home</a>
 				<a class="navbar-brand" href="<?php echo base_url('main/daftarmember'); ?>">Daftar Member</a>
+				<a class="navbar-brand" href="<?php echo base_url('main/daftarparkir'); ?>">Daftar Parkir Harian</a>
 			<?php } ?>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">

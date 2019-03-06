@@ -47,6 +47,15 @@ class M_main extends CI_Model{
 			$sql = "SELECT * FROM app_inout WHERE no_induk='$id' ORDER BY id DESC";
 			$result = $this->db->query($sql)->result_array();
 			return $result;
+		}else if($act == 'daftarparkir'){
+			$sql = "SELECT ant.*, zona.nama_zona,mbr.no_kendaraan
+					FROM app_inout ant 
+					LEFT JOIN app_member mbr ON mbr.no_induk = ant.no_induk
+					LEFT JOIN app_zona zona ON zona.id = mbr.id_zona
+					WHERE DATE(created_date) = CURDATE()
+					ORDER BY id DESC";
+			$result = $this->db->query($sql)->result_array();
+			return $result;
 		}
 	}
 	

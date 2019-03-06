@@ -25,6 +25,12 @@
 			$this->load->view("layouts/main",$data);
 		}
 
+		public function daftarparkir(){
+			$data['result'] = $this->main->get_data('daftarparkir');
+			$data['content'] = "content/daftar_parkir";
+			$this->load->view("layouts/main",$data);
+		}
+
 		public function execute($type="",$act="",$id=""){
 			if($type == 'cetak'){
 				if($act == 'member'){
