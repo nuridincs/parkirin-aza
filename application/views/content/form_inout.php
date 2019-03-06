@@ -5,6 +5,9 @@
 		<input type="text" name="p_no_induk" id="p_no_induk" placeholder="Masukan No. Induk" class="form-control" maxlength="10" required>
 	</div>
 	<div class="form-group">
+		<button class="btn btn-success btn-block" id="s_barcode">Scan Barcode</button>
+	</div>
+	<div class="form-group">
 		<button class="btn btn-primary btn-block p_inout" id="in">Parkir</button>
 	</div>
 	<div class="form-group">

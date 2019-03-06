@@ -53,7 +53,14 @@ $(document).ready(function(){
             success:function(data){
                 // console.log(data);
                 $('#p_result').html(data);
+                setTimeout(() => {
+                    window.location.reload();
+                },5000);
             }
         });
+    });
+
+    $("#s_barcode").click(function(){
+        console.log("masuk barcode");
     });
 });

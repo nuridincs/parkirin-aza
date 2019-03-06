@@ -25,6 +25,12 @@
 			$this->load->view("layouts/main",$data);
 		}
 
+		public function daftarparkir(){
+			$data['result'] = $this->main->get_data('daftarparkir');
+			$data['content'] = "content/daftar_parkir";
+			$this->load->view("layouts/main",$data);
+		}
+
 		public function execute($type="",$act="",$id=""){
 			if($type == 'cetak'){
 				if($act == 'member'){
@@ -49,6 +55,10 @@
 					}
 					if($result == 0){
 						$_view = "Data tidak ditemukan";
+					}else if($result == 1){
+						$_view = "Anda sedang parkir";
+					}else if($result == 2){
+						$_view = "Anda sedang tidak parkir";
 					}else{
 						$_view = '<div><h4>Info Parkir '.$status.'</h4>';
 							$_view .= '<div class="row">';
