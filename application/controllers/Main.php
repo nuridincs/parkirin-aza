@@ -31,6 +31,16 @@
 			$this->load->view("layouts/main",$data);
 		}
 
+		public function loadbarcode(){
+			$data['content'] = "content/scan_barcode";
+			$this->load->view("layouts/main",$data);
+		}
+
+		public function bynoinduk(){
+			$data['content'] = "content/form_inout";
+			$this->load->view("layouts/main",$data);
+		}
+
 		public function execute($type="",$act="",$id=""){
 			if($type == 'cetak'){
 				if($act == 'member'){
