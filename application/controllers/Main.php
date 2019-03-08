@@ -25,6 +25,22 @@
 			$this->load->view("layouts/main",$data);
 		}
 
+		public function daftarparkir(){
+			$data['result'] = $this->main->get_data('daftarparkir');
+			$data['content'] = "content/daftar_parkir";
+			$this->load->view("layouts/main",$data);
+		}
+
+		public function loadbarcode(){
+			$data['content'] = "content/scan_barcode";
+			$this->load->view("layouts/main",$data);
+		}
+
+		public function bynoinduk(){
+			$data['content'] = "content/form_inout";
+			$this->load->view("layouts/main",$data);
+		}
+
 		public function execute($type="",$act="",$id=""){
 			if($type == 'cetak'){
 				if($act == 'member'){
@@ -49,6 +65,10 @@
 					}
 					if($result == 0){
 						$_view = "Data tidak ditemukan";
+					}else if($result == 1){
+						$_view = "Anda sedang parkir";
+					}else if($result == 2){
+						$_view = "Anda sedang tidak parkir";
 					}else{
 						$_view = '<div><h4>Info Parkir '.$status.'</h4>';
 							$_view .= '<div class="row">';
@@ -88,12 +108,34 @@
 					$result = $this->main->get_data('member',$id);
 					header('Content-Type: application/json');
 					echo json_encode($result);
+				}else if($act == 'memberbyid'){
+					$data['result'] = $this->main->get_data('member',$id);
+					$data['fakultas'] = $this->main->get_data('fakultas');
+					$data['jurusan'] = $this->main->get_data('jurusan');
+					$data['zona'] = $this->main->get_data('zona');
+					$data['content'] = "content/form_member";
+					$this->load->view("layouts/main",$data);
 				}
 			}else if($type == 'delete'){
 				if($act == 'member'){
 					$this->db->where('id', $id);
 					$this->db->delete('app_member');
 					redirect(($_SERVER['HTTP_REFERER']), 'refresh');
+				}
+			}else if($type == 'edit'){
+				if($act == 'member'){
+					// print_r($_POST);
+					$data = array(
+						'no_induk' => $this->input->post('update_no_induk'),
+						'fullname' => $this->input->post('update_fullname'),
+						'id_fakultas' => $this->input->post('update_id_fakultas'),
+						'id_jurusan' => $this->input->post('update_id_jurusan'),
+						'no_kendaraan' => $this->input->post('update_no_kendaraan'),
+						'id_zona' => $this->input->post('update_id_zona'),
+					);
+					$this->db->where('id',$this->input->post('update_id'));
+					$this->db->update('app_member',$data);
+					redirect(base_url('main/daftarmember'), 'refresh');
 				}
 			}
 			//$this->load->view("layouts/main",$data);

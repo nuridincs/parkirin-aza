@@ -40,6 +40,15 @@ $(document).ready(function(){
     $(".p_inout").click(function(){
         var no_induk = $("#p_no_induk").val(),
             status = $(this).attr('id');
+
+        if(typeof no_induk == 'undefined'){
+            no_induk = $("#qrcode").val();
+        }
+        if(no_induk == ""){
+            alert("No. Induk tidak ditemukan");
+            return false;
+        }
+            // console.log(no_induk);
             // console.log(status);
             // return false;
         $.ajax({
@@ -52,8 +61,27 @@ $(document).ready(function(){
             },
             success:function(data){
                 // console.log(data);
-                $('#p_result').html(data);
+                $('.p_result').html(data);
+                setTimeout(() => {
+                    window.location.reload();
+                },30000);
             }
         });
+    });
+
+    $("#s_barcode").click(function(){
+        console.log("masuk barcode");
+        // $.ajax({
+        //     url:'loadbarcode',
+        //     type:'GET',
+        //     data:"",
+        //     success:function(data){
+        //         console.log(data);
+        //         // $('#p_result').html(data);
+        //         // setTimeout(() => {
+        //         //     window.location.reload();
+        //         // },5000);
+        //     }
+        // });
     });
 });
