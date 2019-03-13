@@ -8,10 +8,11 @@
 				<tr>
 					<th style="width:5%;">No.</th>
 					<th>No. Induk</th>
-					<th>Status</th>
+					<!-- <th>Status</th> -->
 					<th>Zona Parkir</th>
 					<th>No. Kendaraan</th>
-					<th>Tanggal</th>
+					<th>Tanggal Masuk</th>
+					<th>Tanggal Keluar</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -23,10 +24,11 @@
 				<tr>
 					<td><?php echo $no; ?></td>
 					<td><?php echo $value['no_induk']; ?></td>
-					<td><?php echo ($value['status_inout'] == 1 ? 'Parkir' : 'Keluar'); ?></td>
+					<!-- <td><?php //echo ($value['status_inout'] == 1 ? 'Parkir' : 'Keluar'); ?></td> -->
 					<td><?php echo $value['nama_zona']; ?></td>
 					<td><?php echo $value['no_kendaraan']; ?></td>
 					<td><?php echo $value['created_date']; ?></td>
+					<td><?php echo $value['created_date_out']; ?></td>
 				</tr>
 			 <?php } ?>
 			</tbody>

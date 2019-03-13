@@ -52,8 +52,9 @@ class M_main extends CI_Model{
 					FROM app_inout ant 
 					LEFT JOIN app_member mbr ON mbr.no_induk = ant.no_induk
 					LEFT JOIN app_zona zona ON zona.id = mbr.id_zona
-					WHERE DATE(created_date) = CURDATE()
 					ORDER BY id DESC";
+
+					// WHERE DATE(created_date) = CURDATE()
 			$result = $this->db->query($sql)->result_array();
 			return $result;
 		}
@@ -113,7 +114,7 @@ class M_main extends CI_Model{
 									'created_date' => date("Y-m-d H:i:s")
 								);
 								$this->db->where('no_induk',$getKuota[0]['no_induk']);
-								$this->db->update('app_inout',array('status_inout'=>2));
+								$this->db->update('app_inout',array('status_inout'=>2,'created_date_out' => date("Y-m-d H:i:s")));
 							}
 						}
 					}
