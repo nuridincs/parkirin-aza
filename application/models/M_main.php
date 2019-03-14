@@ -48,12 +48,17 @@ class M_main extends CI_Model{
 			$result = $this->db->query($sql)->result_array();
 			return $result;
 		}else if($act == 'daftarparkir'){
+			if(!empty($id)){
+				$conditions = "WHERE ant.created_date_out >= '".$id['date']."' AND ant.created_date_out <= '".$id['date_2']."'";
+			}else{
+				$conditions = "";
+			}
 			$sql = "SELECT ant.*, zona.nama_zona,mbr.no_kendaraan
 					FROM app_inout ant 
 					LEFT JOIN app_member mbr ON mbr.no_induk = ant.no_induk
-					LEFT JOIN app_zona zona ON zona.id = mbr.id_zona
-					ORDER BY id DESC";
-
+					LEFT JOIN app_zona zona ON zona.id = mbr.id_zona "
+					.$conditions.
+					" ORDER BY ant.id DESC";
 					// WHERE DATE(created_date) = CURDATE()
 			$result = $this->db->query($sql)->result_array();
 			return $result;
