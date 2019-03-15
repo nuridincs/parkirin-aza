@@ -26,7 +26,8 @@
 		}
 
 		public function daftarparkir(){
-			$data['result'] = $this->main->get_data('daftarparkir');
+			$param = $this->input->post();
+			$data['result'] = $this->main->get_data('daftarparkir',$param);
 			$data['content'] = "content/daftar_parkir";
 			$this->load->view("layouts/main",$data);
 		}

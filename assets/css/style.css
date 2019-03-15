@@ -149,3 +149,35 @@
 }
 .bg-ireng{
 }
+
+.wrappet-card{
+	background-color: #31588e;
+	padding: 15px;
+    margin: 0 210px;
+}
+
+.wrapper {
+	background-color: white;
+	color: black;
+	display: flex;
+	flex-flow: row nowrap;
+	min-height: 100%;
+	width: 300px;
+	border-radius: 10px;
+}
+
+.icon {
+	align-self: center;
+	background-color: yellow;
+	color: black;
+	flex: 1 1 auto;
+	font-size: 32px;
+	padding: 20px;
+}
+
+.content {
+	background-color: lightgreen;
+	color: black;
+	flex: 12 1 auto;
+	padding: 20px;
+}
