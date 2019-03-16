@@ -12,6 +12,11 @@
 		}
 
 		public function home(){
+			if($this->session->userdata('levelaks') == 2){
+				$data['dosen'] = $this->main->get_data('dosen');
+				$data['mahasiswa'] = $this->main->get_data('mahasiswa');
+				$data['pegawai'] = $this->main->get_data('pegawai');
+			}
 			$data['content'] = "content/dashboard";
 			$this->load->view("layouts/main",$data);
 		}
