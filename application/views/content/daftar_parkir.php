@@ -28,10 +28,13 @@
      </div>
      <div class="form-group">
       <div class="col-sm-10 col-sm-offset-2">
-       <input name="_honey" style="display:none" type="text"/>
+       <input name="submit" style="display:none" type="text"/>
        <button class="btn btn-primary " name="submit" type="submit">
-        Submit
+        Cari
        </button>
+       <a href="<?= base_url('main/daftarparkir') ?>" class="btn btn-success">
+        Refresh
+       </a>
       </div>
      </div>
     </form>
