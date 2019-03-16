@@ -62,6 +62,18 @@ class M_main extends CI_Model{
 					// WHERE DATE(created_date) = CURDATE()
 			$result = $this->db->query($sql)->result_array();
 			return $result;
+		}else if($act == 'dosen'){
+			$sql = "SELECT * FROM app_zona WHERE id=2";
+			$result = $this->db->query($sql)->result_array();
+			return $result;
+		}else if($act == 'mahasiswa'){
+			$sql = "SELECT * FROM app_zona WHERE id=1";
+			$result = $this->db->query($sql)->result_array();
+			return $result;
+		}else if($act == 'pegawai'){
+			$sql = "SELECT * FROM app_zona WHERE id=3";
+			$result = $this->db->query($sql)->result_array();
+			return $result;
 		}
 	}
 	
