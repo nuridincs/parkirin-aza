@@ -12,6 +12,11 @@
 		}
 
 		public function home(){
+			if($this->session->userdata('levelaks') == 2){
+				$data['dosen'] = $this->main->get_data('dosen');
+				$data['mahasiswa'] = $this->main->get_data('mahasiswa');
+				$data['pegawai'] = $this->main->get_data('pegawai');
+			}
 			$data['content'] = "content/dashboard";
 			$this->load->view("layouts/main",$data);
 		}
@@ -26,7 +31,8 @@
 		}
 
 		public function daftarparkir(){
-			$data['result'] = $this->main->get_data('daftarparkir');
+			$param = $this->input->post();
+			$data['result'] = $this->main->get_data('daftarparkir',$param);
 			$data['content'] = "content/daftar_parkir";
 			$this->load->view("layouts/main",$data);
 		}
@@ -60,41 +66,76 @@
 					$result = $this->main->execute('save','inout',$param);
 					if($param['status'] == "in"){
 						$status = "Masuk";
+						$info_keterangan = '<div class="col-sm-6">Zona</div><div class="col-sm-6"><span>Parkir Tersedia</span></div>';
+						$keterangan = '<div class="col-sm-6" style="font-size: 17px;font-weight: bold;">'.$result['member'][0]['zona'].'</div>
+                                                <div class="col-sm-6" style="font-size: 17px;font-weight: bold;"><span>'.$result['member'][0]['sisa_kuota'].'</span></div>';
+                        $msg = "HARAP PARKIR SESUAI ZONA";
+                        $info = '<div>'.$result['member'][0]['waktu_parkir'].'</div>';
 					}else{
 						$status = "Keluar";
+						$info_keterangan = '';
+						$keterangan = '<div class="col-sm-4">Masuk</div>
+	                                    <div class="col-sm-8">'.$result['member'][0]['waktu_parkir'].'</div>
+	                                    <div class="col-sm-4">Keluar</div>
+	                                    <div class="col-sm-8">'.$result['member'][0]['waktu_keluar'].'</div>
+	                                    <div class="col-sm-4">Tarif</div>
+	                                    <div class="col-sm-8">Rp. 1000</div>';
+	                    $msg = "TERIMA KASIH";
+                        $info = '<div align="center"><div>Zona</div><div style="font-size: 17px;font-weight: bold;">'.$result['member'][0]['zona'].'</div></div>';
 					}
 					if($result == 0){
-						$_view = "Data tidak ditemukan";
+						$_view = '<div class="alert alert-danger">
+								  Data tidak ditemukan.
+								</div>';
 					}else if($result == 1){
-						$_view = "Anda sedang parkir";
+						$_view = '<div class="alert alert-warning">
+							  Anda sedang parkir.
+							</div>';
 					}else if($result == 2){
-						$_view = "Anda sedang tidak parkir";
+						$_view = '<div class="alert alert-warning">
+								  Anda sedang tidak parkir
+								</div>';
 					}else{
-						$_view = '<div><h4>Info Parkir '.$status.'</h4>';
+						$_view = '<div style="border: 2px solid red;border-radius: 10px;padding: 15px;">';
 							$_view .= '<div class="row">';
-								$_view .= '<div class="col-sm-8" align="center">';
-									$_view .= '<img src="'. base_url() .'assets/qrcode/'.$result['member'][0]['no_induk'].'.png" alt="" class="img-responsive">';
+								$_view .= '<div class="col-sm-4">';
+									$_view .= '<div>Info Parkir '.$status.'</div>';
+									$_view .= $info;
+									$_view .= '<div><img src="'. base_url() .'assets/qrcode/'.$result['member'][0]['no_induk'].'.png" alt="" class="img-responsive"></div>';
+								$_view .= '</div>';
+								$_view .= '<div class="col-sm-6">';
+									$_view .= '<div style="border: 2px solid #cacaca;border-radius: 5px;">';
+										$_view .= '<div class="row">';
+											$_view .= $info_keterangan;
+										$_view .= '</div>';
+										$_view .= '<div class="row">';
+											$_view .= $keterangan;
+										$_view .= '</div>';
+									$_view .= '</div>';
+									$_view .= '<div class="row">';
+										$_view .= '<div class="col-sm-6" align="right">No. Induk</div>';
+										$_view .= '<div class="col-sm-6" align="left">'.$result['member'][0]['no_induk'].'</div>';
+									$_view .= '</div>';
+									$_view .= '<div class="row">';
+										$_view .= '<div class="col-sm-6" align="right">Nama</div>';
+										$_view .= '<div class="col-sm-6" align="left">'.$result['member'][0]['fullname'].'</div>';
+									$_view .= '</div>';
+									$_view .= '<div class="row">';
+										$_view .= '<div class="col-sm-6" align="right">No. Kendaraan</div>';
+										$_view .= '<div class="col-sm-6" align="left">'.$result['member'][0]['no_kendaraan'].'</div>';
+									$_view .= '</div>';
+									$_view .= '<div class="row">';
+										$_view .= '<div class="col-sm-6" align="right">Fakultas</div>';
+										$_view .= '<div class="col-sm-6" align="left">'.$result['member'][0]['nama_fakultas'].'</div>';
+									$_view .= '</div>';
+									$_view .= '<div class="row">';
+										$_view .= '<div class="col-sm-6" align="right">Jurusan</div>';
+										$_view .= '<div class="col-sm-6" align="left">'.$result['member'][0]['nama_jurusan'].'</div>';
+									$_view .= '</div>';
 								$_view .= '</div>';
 							$_view .= '</div>';
-							$_view .= '<div class="row">';
-								$_view .= '<div class="col-sm-6">No. Induk</div>';
-								$_view .= '<div class="col-sm-6">'.$result['member'][0]['no_induk'].'</div>';
-							$_view .= '</div>';
-							$_view .= '<div class="row">';
-								$_view .= '<div class="col-sm-6">Fakultas</div>';
-								$_view .= '<div class="col-sm-6">'.$result['member'][0]['nama_fakultas'].'</div>';
-							$_view .= '</div>';
-							$_view .= '<div class="row">';
-								$_view .= '<div class="col-sm-6">Jurusan</div>';
-								$_view .= '<div class="col-sm-6">'.$result['member'][0]['nama_jurusan'].'</div>';
-							$_view .= '</div>';
-							$_view .= '<div class="row">';
-								$_view .= '<div class="col-sm-6">Zona</div>';
-								$_view .= '<div class="col-sm-6">'.$result['member'][0]['zona'].'</div>';
-							$_view .= '</div>';
-							$_view .= '<div class="row">';
-								$_view .= '<div class="col-sm-6">Slot parkir tersedia</div>';
-								$_view .= '<div class="col-sm-6">'.$result['kouta']['sisa_kuota'].'</div>';
+							$_view .= '<div style="color: red;font-weight: bold;margin-top: 15px;">';
+								$_view .= $msg;
 							$_view .= '</div>';
 						$_view .= '</div>';
 					}
