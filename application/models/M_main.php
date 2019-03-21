@@ -64,11 +64,15 @@ class M_main extends CI_Model{
 			$result = $this->db->query($sql)->result_array();
 			return $result;
 		}else if($act == 'daftarparkir'){
-			if(!empty($id)){
-				$conditions = "WHERE DATE(ant.created_date_out) >= '".$id['date']."' AND DATE(ant.created_date_out) <= '".$id['date_2']."'";
+			$conditions = "";
+			if(isset($id['search'])){
+				$conditions = "WHERE mbr.no_kendaraan LIKE '%".$id['search']."' OR mbr.no_induk LIKE'%".$id['search']."'";
 			}else{
-				$conditions = "";
+				if(!empty($id)){
+					$conditions = "WHERE DATE(ant.created_date_out) >= '".$id['date']."' AND DATE(ant.created_date_out) <= '".$id['date_2']."'";
+				}
 			}
+			
 			$sql = "SELECT ant.*, zona.nama_zona,mbr.no_kendaraan
 					FROM app_inout ant 
 					LEFT JOIN app_member mbr ON mbr.no_induk = ant.no_induk
