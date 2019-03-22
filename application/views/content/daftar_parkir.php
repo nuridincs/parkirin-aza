@@ -43,6 +43,24 @@
  </div>
 </div>
 <?php // echo $this->load->view('layouts/datepicker'); ?>
+<!-- <div>
+  <form action="<?php //echo base_url('main/daftarparkir'); ?>" class="form-horizontal" method="post">
+    <div class="form-group">
+      <div class="col-xs-2">
+        <input class="form-control" name="search" id="search" placeholder="Search..." type="text">
+      </div>
+      <button class="btn btn-primary " name="submit" type="submit">
+        Cari
+       </button>
+    </div>
+  </form>
+</div> -->
+<div align="right">
+  <form action="<?php echo base_url('main/daftarparkir'); ?>" class="form-horizontal" method="post">
+    <input type="text" name="search" id="search" placeholder="Search..." required>
+    <button>Cari</button>
+  </form>
+</div>
 <div class="row">
 	<div class="col-sm-12">
 		<table class="table table-hover">
