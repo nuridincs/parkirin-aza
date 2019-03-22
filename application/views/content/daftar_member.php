@@ -6,6 +6,13 @@
 		<div align="right">
 			<button class="btn btn-primary" data-toggle="modal" data-target="#addmemberModal" >Add Member</button>
 		</div>
+		<form action="<?php echo base_url('main/daftarmember'); ?>" class="form-horizontal" method="post">
+    <input type="text" name="search2" id="search2" placeholder="Search..." required>
+	<button>Cari</button> 
+	<a href="<?= base_url('main/daftarmember') ?>" class="btn btn-default">
+        Lihat Semua
+       </a>
+  </form>
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -57,7 +64,7 @@
 						<form id="tambahform" action="#" method="post" enctype="multipart/form-data">	
 							<div class="form-group">
 								<label>Nim/Nip</label>&nbsp;<span class="error" id="err_no_induk"></span>
-								<input type="text" name="no_induk" id="no_induk" class="form-control" maxlength="10" required>
+								<input type="text" name="no_induk" id="no_induk" class="form-control" maxlength="13" required>
 							</div>
 							<div class="form-group">
 								<label>Nama</label>&nbsp;<span class="error" id="report1"></span>
