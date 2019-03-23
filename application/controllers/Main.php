@@ -37,9 +37,10 @@
 			$data['content'] = "content/daftar_parkir";
 			$this->load->view("layouts/main",$data);
 		}
+
 		public function report(){
 			$param = $this->input->post();
-			$data['result'] = $this->main->get_data('daftarparkir',$param);
+			$data['result'] = $this->main->get_data('report',$param);
 			$data['content'] = "content/report_keuangan";
 			$this->load->view("layouts/main",$data);
 		}

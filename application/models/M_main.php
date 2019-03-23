@@ -89,6 +89,69 @@ class M_main extends CI_Model{
 			// echo $sql;die;
 			$result = $this->db->query($sql)->result_array();
 			return $result;
+		}else if($act == 'report'){
+			$conditions = "";
+			if(isset($id['search'])){
+				$conditions = "WHERE mbr.no_kendaraan LIKE '%".$id['search']."%' OR mbr.no_induk LIKE'%".$id['search']."%'";
+			}else{
+				if(!empty($id)){
+					$conditions = "WHERE DATE(ant.created_date_out) >= '".$id['date']."' AND DATE(ant.created_date_out) <= '".$id['date_2']."' AND zona.id=".$id['zona'];
+				}
+				// else if(!empty($id['date'])){
+				// 	$conditions = "WHERE DATE(ant.created_date_out) >= '".$id['date']."'";
+				// }else if(!empty($id['date_2'])){
+				// 	$conditions = "WHERE DATE(ant.created_date_out) >= '".$id['date_2']."'";
+				// }else if(!empty($id['zona'])){
+
+				// }
+			}
+			// print_r($conditions);die;
+			$sql = "SELECT ant.*, zona.nama_zona,mbr.no_kendaraan
+					FROM app_inout ant 
+					LEFT JOIN app_member mbr ON mbr.no_induk = ant.no_induk
+					LEFT JOIN app_zona zona ON zona.id = mbr.id_zona "
+					.$conditions.
+					" ORDER BY ant.id DESC";
+					// WHERE DATE(created_date) = CURDATE()
+			// echo $sql;die;
+			$result = $this->db->query($sql)->result_array();
+
+			$sqlgettotal = "SELECT zona.nama_zona,count(zona.id) as total_parkir
+							FROM app_inout ant 
+							LEFT JOIN app_member mbr ON mbr.no_induk = ant.no_induk
+							LEFT JOIN app_zona zona ON zona.id  = mbr.id_zona
+							WHERE zona.id = 1
+							UNION ALL
+							SELECT zona.nama_zona,count(zona.id) as dosen
+							FROM app_inout ant 
+							LEFT JOIN app_member mbr ON mbr.no_induk = ant.no_induk
+							LEFT JOIN app_zona zona ON zona.id  = mbr.id_zona
+							WHERE zona.id = 2
+							UNION ALL
+							SELECT zona.nama_zona,count(zona.id) as pgw
+							FROM app_inout ant 
+							LEFT JOIN app_member mbr ON mbr.no_induk = ant.no_induk
+							LEFT JOIN app_zona zona ON zona.id  = mbr.id_zona
+							WHERE zona.id = 3					
+							";
+			$resultTotal = $this->db->query($sqlgettotal)->result_array();
+
+			$sqltarif = "SELECT sum(ant.tarif) as total_tarif
+						FROM app_inout ant 
+						LEFT JOIN app_member mbr ON mbr.no_induk = ant.no_induk
+						LEFT JOIN app_zona zona ON zona.id  = mbr.id_zona;
+						";
+			$resultTarif = $this->db->query($sqltarif)->result_array();
+
+			$resultcombine = [
+				'data' => $result,
+				'total' => $resultTotal,
+				'tarif' => $resultTarif
+			];
+			// echo "<pre>";
+			// print_r($resultcombine);
+			// die;
+			return $resultcombine;
 		}else if($act == 'dosen'){
 			$sql = "SELECT * FROM app_zona WHERE id=2";
 			$result = $this->db->query($sql)->result_array();

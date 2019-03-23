@@ -50,11 +50,11 @@
         </div> -->
         <input class="form-control" id="date" name="date" required placeholder="Dari Tanggal" type="text"/><br>
         <input class="form-control" id="date_2" name="date_2" required placeholder="Sampai Tanggal" type="text"/><br>
-        <select class="form-control" id="date_2" name="date_2" required type="text"/>
-            <option value="semua_zona"> Semua Zona </option>
-            <option value="mahasiswa"> Mahasiswa </option>
-            <option value="pegawai"> Pegawai </option>
-            <option value="dosen"> Dosen </option>
+        <select class="form-control" id="zona" name="zona" required="required" type="text"/>
+            <option value="0"> Semua Zona </option>
+            <option value="1"> Mahasiswa </option>
+            <option value="3"> Pegawai </option>
+            <option value="2"> Dosen </option>
         </select>
             
        <!-- </div> -->
@@ -87,7 +87,7 @@
 			<tbody>
 			<?php 
 				$no = 0;
-				foreach($result as $value){ 
+				foreach($result['data'] as $value){ 
 					$no++;
 			?>
 				<tr>
@@ -101,12 +101,42 @@
 			</tbody>
 		</table>
     </div>
-    <div class="col-sm-6" style="background-color:pink;">
-    <div class="card-deck">
-  <div class="card bg-primary">
-    <div class="card-body text-center" witdh="200px">
-      <p class="card-text" >Total Kendaraan</p>
-    </div>
-  </div>
+    <div class="col-sm-6">
+      <div style="border: 2px solid #ccc;border-radius: 5px;" align="center">
+        <div style="background-color: #e0dfdf" align="center">
+          <div style="font-size: 20px;">Total Kendaraan</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4" style="font-size: 20px;">
+           Mahasiswa
+          </div>
+          <div class="col-sm-4" style="font-size: 20px;">
+           Dosen
+          </div>
+          <div class="col-sm-4" style="font-size: 20px;">
+           Pegawai
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+           <div style="font-size: 40px;color: #f30cb3;"><?php echo $result['total'][0]['total_parkir'] ?></div>
+          </div>
+          <div class="col-sm-4">
+           <div style="font-size: 40px;color: red;"><?php echo $result['total'][1]['total_parkir'] ?></div>
+          </div>
+          <div class="col-sm-4">
+           <div style="font-size: 40px;color: #1efb1e;"><?php echo $result['total'][2]['total_parkir'] ?></div>
+          </div>
+        </div>
+        <div class="row" align="center">
+          <div>
+           <span style="font-size: 15px">Total Tarif Rp. </span><span style="border: 2px solid #cecece;border-radius: 5px;font-size: 40px"><?php echo number_format($result['tarif'][0]['total_tarif'],0) ?></span>
+          </div>
+<!--           <div class="col-sm-3">
+           1000000
+          </div> -->
+        </div>
+      </div>
+
     </div>
   </div>
