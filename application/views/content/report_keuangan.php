@@ -72,7 +72,11 @@
       </div>
      </div>
     </form>
-    <?php if(!empty($result)){ ?>
+    <?php
+      if(!empty($result)){ 
+        
+        $cekdata = count($result['data']);
+    ?>
       <table class="table table-hover">
         <thead>
           <tr>
@@ -120,13 +124,13 @@
           </div>
           <div class="row">
             <div class="col-sm-4">
-            <div style="font-size: 40px;color: #f30cb3;"><?php echo $result['total'][0]['total_parkir'] ?></div>
+            <div style="font-size: 40px;color: #f30cb3;"><?php echo ($cekdata != 0) ? $result['total'][0]['total_parkir'] : 0 ?></div>
             </div>
             <div class="col-sm-4">
-            <div style="font-size: 40px;color: red;"><?php echo $result['total'][1]['total_parkir'] ?></div>
+            <div style="font-size: 40px;color: red;"><?php echo ($cekdata != 0) ? $result['total'][1]['total_parkir'] : 0 ?></div>
             </div>
             <div class="col-sm-4">
-            <div style="font-size: 40px;color: #1efb1e;"><?php echo $result['total'][2]['total_parkir'] ?></div>
+            <div style="font-size: 40px;color: #1efb1e;"><?php echo ($cekdata != 0) ? $result['total'][2]['total_parkir'] : 0 ?></div>
             </div>
           </div>
           <div class="row" align="center">
@@ -149,7 +153,11 @@
                     $tarifpgw = $result['total'][2]['total_tarif'];
                   }
 
-                  $totaltarif = $tarifmhs + $tarifdosen + $tarifpgw;
+                  if($cekdata == 0){
+                    $totaltarif = 0;
+                  }else{
+                    $totaltarif = $tarifmhs + $tarifdosen + $tarifpgw;
+                  }
                   echo number_format($totaltarif,0) 
                   //echo number_format($result['tarif'][0]['total_tarif'],0) 
                 ?>
