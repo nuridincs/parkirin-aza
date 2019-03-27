@@ -104,7 +104,7 @@ class M_main extends CI_Model{
 						$zonaidbytarif = "";//$conditionstarif;
 					}
 					$conditions = "WHERE DATE(ant.created_date_out) >= '".$id['date']."' AND DATE(ant.created_date_out) <= '".$id['date_2']."'".$zonaid;
-					$conditionstotal = "AND DATE(ant.created_date_out) >= '".$id['date']."' AND DATE(ant.created_date_out) <= '".$id['date_2']."'";
+					$conditionstotal = "AND DATE(ant.created_date_out) >= '".$id['date']."' AND DATE(ant.created_date_out) <= '".$id['date_2']."'".$zonaid;
 					$conditionstarif = $zonaidbytarif;//"WHERE zona.id ='".$id['zona']."'";
 				}
 			}
