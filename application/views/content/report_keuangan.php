@@ -72,71 +72,93 @@
       </div>
      </div>
     </form>
-    <table class="table table-hover">
-			<thead>
-				<tr>
-					<th style="width:5%;">No.</th>
-					<th>No. Induk</th>
-					<!-- <th>Status</th> -->
-					<th>Zona Parkir</th>
-					<th>No. Kendaraan</th>
-					<!--<th>Tanggal Masuk</th>
-					<th>Tanggal Keluar</th> -->
-				</tr>
-			</thead>
-			<tbody>
-			<?php 
-				$no = 0;
-				foreach($result['data'] as $value){ 
-					$no++;
-			?>
-				<tr>
-					<td><?php echo $no; ?></td>
-					<td><?php echo $value['no_induk']; ?></td>
-					<!-- <td><?php //echo ($value['status_inout'] == 1 ? 'Parkir' : 'Keluar'); ?></td> -->
-					<td><?php echo $value['nama_zona']; ?></td>
-					<td><?php echo $value['no_kendaraan']; ?></td>
-				</tr>
-			 <?php } ?>
-			</tbody>
-		</table>
-    </div>
-    <div class="col-sm-6">
-      <div style="border: 2px solid #ccc;border-radius: 5px;" align="center">
-        <div style="background-color: #e0dfdf" align="center">
-          <div style="font-size: 20px;">Total Kendaraan</div>
-        </div>
-        <div class="row">
-          <div class="col-sm-4" style="font-size: 20px;">
-           Mahasiswa
-          </div>
-          <div class="col-sm-4" style="font-size: 20px;">
-           Dosen
-          </div>
-          <div class="col-sm-4" style="font-size: 20px;">
-           Pegawai
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-4">
-           <div style="font-size: 40px;color: #f30cb3;"><?php echo $result['total'][0]['total_parkir'] ?></div>
-          </div>
-          <div class="col-sm-4">
-           <div style="font-size: 40px;color: red;"><?php echo $result['total'][1]['total_parkir'] ?></div>
-          </div>
-          <div class="col-sm-4">
-           <div style="font-size: 40px;color: #1efb1e;"><?php echo $result['total'][2]['total_parkir'] ?></div>
-          </div>
-        </div>
-        <div class="row" align="center">
-          <div>
-           <span style="font-size: 15px">Total Tarif Rp. </span><span style="border: 2px solid #cecece;border-radius: 5px;font-size: 40px"><?php echo number_format($result['tarif'][0]['total_tarif'],0) ?></span>
-          </div>
-<!--           <div class="col-sm-3">
-           1000000
-          </div> -->
-        </div>
+    <?php if(!empty($result)){ ?>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th style="width:5%;">No.</th>
+            <th>No. Induk</th>
+            <!-- <th>Status</th> -->
+            <th>Zona Parkir</th>
+            <th>No. Kendaraan</th>
+            <!--<th>Tanggal Masuk</th>
+            <th>Tanggal Keluar</th> -->
+          </tr>
+        </thead>
+        <tbody>
+        <?php 
+          $no = 0;
+          foreach($result['data'] as $value){ 
+            $no++;
+        ?>
+          <tr>
+            <td><?php echo $no; ?></td>
+            <td><?php echo $value['no_induk']; ?></td>
+            <!-- <td><?php //echo ($value['status_inout'] == 1 ? 'Parkir' : 'Keluar'); ?></td> -->
+            <td><?php echo $value['nama_zona']; ?></td>
+            <td><?php echo $value['no_kendaraan']; ?></td>
+          </tr>
+        <?php } ?>
+        </tbody>
+      </table>
       </div>
+      <div class="col-sm-6">
+        <div style="border: 2px solid #ccc;border-radius: 5px;" align="center">
+          <div style="background-color: #e0dfdf" align="center">
+            <div style="font-size: 20px;">Total Kendaraan</div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4" style="font-size: 20px;">
+            Mahasiswa
+            </div>
+            <div class="col-sm-4" style="font-size: 20px;">
+            Dosen
+            </div>
+            <div class="col-sm-4" style="font-size: 20px;">
+            Pegawai
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+            <div style="font-size: 40px;color: #f30cb3;"><?php echo $result['total'][0]['total_parkir'] ?></div>
+            </div>
+            <div class="col-sm-4">
+            <div style="font-size: 40px;color: red;"><?php echo $result['total'][1]['total_parkir'] ?></div>
+            </div>
+            <div class="col-sm-4">
+            <div style="font-size: 40px;color: #1efb1e;"><?php echo $result['total'][2]['total_parkir'] ?></div>
+            </div>
+          </div>
+          <div class="row" align="center">
+            <div>
+            <span style="font-size: 15px">Total Tarif Rp. </span><span style="border: 2px solid #cecece;border-radius: 5px;font-size: 40px">
+                <?php 
+                  $tarifmhs = 0;
+                  $tarifdosen = 0;
+                  $tarifpgw = 0;
 
-    </div>
+                  if($result['total'][0]['total_tarif'] != 0){
+                    $tarifmhs = $result['total'][0]['total_tarif'];
+                  }
+                  
+                  if($result['total'][1]['total_tarif'] != 0){
+                    $tarifdosen = $result['total'][1]['total_tarif'];
+                  }
+                
+                  if($result['total'][2]['total_tarif'] != 0){
+                    $tarifpgw = $result['total'][2]['total_tarif'];
+                  }
+
+                  $totaltarif = $tarifmhs + $tarifdosen + $tarifpgw;
+                  echo number_format($totaltarif,0) 
+                  //echo number_format($result['tarif'][0]['total_tarif'],0) 
+                ?>
+              </span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    <?php } ?>
   </div>
