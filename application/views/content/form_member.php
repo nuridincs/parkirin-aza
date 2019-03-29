@@ -3,7 +3,7 @@
     <div class="form-group">
         <input type="hidden" readonly name="update_id" value="<?= $result->id ?>">
         <label>Nim/Nip</label>&nbsp;<span class="error" id="err_no_induk"></span>
-        <input type="text" name="update_no_induk" id="update_no_induk" value="<?= $result->no_induk ?>" class="form-control" maxlength="10" required>
+        <input type="text" name="update_no_induk" id="update_no_induk" value="<?= $result->no_induk ?>" class="form-control" maxlength="13" required>
     </div>
     <div class="form-group">
         <label>Nama</label>&nbsp;<span class="error" id="report1"></span>

@@ -75,10 +75,12 @@ $query_builder = TRUE;
 
 $hostname = $_SERVER['HTTP_HOST'];//getenv('HTTP_HOST');
 if($hostname == 'parkirin-aza.local'){
+	$iphostname = "localhost:3306";
 	$username = 'root';
 	$dbname = 'db_parkirin_aza';
 	$password = '';
 }else{
+	$iphostname = "localhost";
 	$username = "user";
 	$dbname = "db_parkiran_aza";
 	$password = "user";
@@ -86,7 +88,7 @@ if($hostname == 'parkirin-aza.local'){
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost:3306',
+	'hostname' => $iphostname,//'localhost:3306',
 	'username' => $username,//'root',
 	'password' => $password,//'',
 	'database' => $dbname,//'db_parkirin_aza',

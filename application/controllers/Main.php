@@ -22,7 +22,8 @@
 		}
 
 		public function daftarmember(){
-			$data['result'] = $this->main->get_data('daftarmember');
+			$param = $this->input->post();
+			$data['result'] = $this->main->get_data('daftarmember',$param);
 			$data['fakultas'] = $this->main->get_data('fakultas');
 			$data['jurusan'] = $this->main->get_data('jurusan');
 			$data['zona'] = $this->main->get_data('zona');
@@ -34,6 +35,16 @@
 			$param = $this->input->post();
 			$data['result'] = $this->main->get_data('daftarparkir',$param);
 			$data['content'] = "content/daftar_parkir";
+			$this->load->view("layouts/main",$data);
+		}
+
+		public function report(){
+			$param = $this->input->post();
+			if(!empty($param)){
+				$data['result'] = $this->main->get_data('report',$param);
+			}
+			// $data['result'] = $this->main->get_data('report',$param);
+			$data['content'] = "content/report_keuangan";
 			$this->load->view("layouts/main",$data);
 		}
 
