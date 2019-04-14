@@ -217,7 +217,8 @@
 				$mpdf=new mPDF('utf-8', 'A4', 10.5, 'arial');
 				ob_start();
 				$data['result'] = $this->main->get_data('daftarmember',$id);
-				$data['content'] = "content/data_member";
+				$data['content'] = "content/e_pdf";
+				// $this->load->view("layouts/main",$data);
 				$_view = $this->load->view("layouts/main",$data);
 			}
 			
